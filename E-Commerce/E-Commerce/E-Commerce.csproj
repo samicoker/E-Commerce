@@ -742,6 +742,7 @@
     <Content Include="Content\Images\50461292_1558074741003332_1547297234360467456_n %281%29.png" />
     <Content Include="Content\Images\50461292_1558074741003332_1547297234360467456_n.png" />
     <Content Include="Content\Images\60719257_2440988272611892_5838122300691447808_n.png" />
+    <Content Include="Content\script.sql" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Site\about_us.html" />

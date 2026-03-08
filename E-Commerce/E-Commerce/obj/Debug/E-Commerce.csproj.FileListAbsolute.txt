@@ -185,6 +185,6 @@ C:\Users\Lenovo\Documents\GitHub\E-Commerce\E-Commerce\E-Commerce\bin\System.Web
 C:\Users\Lenovo\Documents\GitHub\E-Commerce\E-Commerce\E-Commerce\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Lenovo\Documents\GitHub\E-Commerce\E-Commerce\E-Commerce\obj\Debug\E-Commerce.csproj.AssemblyReference.cache
 C:\Users\Lenovo\Documents\GitHub\E-Commerce\E-Commerce\E-Commerce\obj\Debug\E-Commerce.csproj.CoreCompileInputs.cache
-C:\Users\Lenovo\Documents\GitHub\E-Commerce\E-Commerce\E-Commerce\obj\Debug\E-Commerce.csproj.CopyComplete
 C:\Users\Lenovo\Documents\GitHub\E-Commerce\E-Commerce\E-Commerce\obj\Debug\E-Commerce.dll
 C:\Users\Lenovo\Documents\GitHub\E-Commerce\E-Commerce\E-Commerce\obj\Debug\E-Commerce.pdb
+C:\Users\Lenovo\Documents\GitHub\E-Commerce\E-Commerce\E-Commerce\obj\Debug\E-Commerce.csproj.Up2Date

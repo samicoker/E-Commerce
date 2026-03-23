@@ -47,16 +47,39 @@ namespace E_Commerce.Controllers
         // POST: Product/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(Product product,HttpPostedFileBase File)
+        //{
+        //    string path = Path.Combine("/Content/Images/" + File.FileName);
+        //    File.SaveAs(Server.MapPath(path));
+        //    product.Image = File.FileName.ToString();
+        //    db.Products.Add(product);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Product product,HttpPostedFileBase File)
+        public ActionResult Create(Product product, HttpPostedFileBase File)
         {
-            string path = Path.Combine("/Content/Images/" + File.FileName);
-            File.SaveAs(Server.MapPath(path));
-            product.Image = File.FileName.ToString();
-            db.Products.Add(product);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            if (ModelState.IsValid)
+            {
+                if (File != null)
+                {
+                    string path = Path.Combine("/Content/Images/" + File.FileName);
+                    File.SaveAs(Server.MapPath(path));
+
+                    product.Image = File.FileName.ToString();
+                }
+                db.Products.Add(product);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", product.CategoryId);
+            return View(product);
         }
 
         // GET: Product/Edit/5
@@ -78,22 +101,57 @@ namespace E_Commerce.Controllers
         // POST: Product/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(Product product, HttpPostedFileBase File)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        string path = Path.Combine("/Content/Images/" + File.FileName);
+        //        File.SaveAs(Server.MapPath(path));
+        //        product.Image = File.FileName.ToString();
+
+        //        db.Entry(product).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", product.CategoryId);
+        //    return View(product);
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Product product, HttpPostedFileBase File)
+        public ActionResult Edit(Product model, HttpPostedFileBase File)
         {
-            if (ModelState.IsValid)
-            {
-                string path = Path.Combine("/Content/Images/" + File.FileName);
-                File.SaveAs(Server.MapPath(path));
-                product.Image = File.FileName.ToString();
+            var entity = db.Products.Find(model.Id);
 
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            if (entity == null)
+            {
+                return HttpNotFound();
             }
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", product.CategoryId);
-            return View(product);
+
+            entity.Name = model.Name;
+            entity.Description = model.Description;
+            entity.Price = model.Price;
+            entity.Stock = model.Stock;
+            entity.IsApproved = model.IsApproved;
+            entity.IsHome = model.IsHome;
+            entity.IsFeatured = model.IsFeatured;
+            entity.Slider = model.Slider;
+            entity.CategoryId = model.CategoryId;
+
+            if (File != null && File.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(File.FileName);
+                var path = Path.Combine(Server.MapPath("~/Content/Images"), fileName);
+                File.SaveAs(path);
+
+                entity.Image = fileName;
+            }
+            // File yoksa entity.Image aynen kalır
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // GET: Product/Delete/5

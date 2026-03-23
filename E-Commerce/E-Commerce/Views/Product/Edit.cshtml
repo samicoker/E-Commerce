@@ -35,9 +35,23 @@
             </div>
 
             <div class="form-group">
+                @Html.LabelFor(model => model.Image, "Mevcut Resim", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (!string.IsNullOrEmpty(Model.Image))
+                    {
+                        <img src="~/Content/Images/@Model.Image" alt="Resim" style="width:120px; height:auto;" />
+                        <p>@Model.Image</p>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Kayıtlı resim yok</p>
+                    }
+                </div>
+            </div>
+            <div class="form-group">
                 @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                   
                     <input type="file" name="File" value="" />
                     @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                 </div>

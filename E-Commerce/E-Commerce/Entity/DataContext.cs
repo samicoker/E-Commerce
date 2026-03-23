@@ -8,13 +8,14 @@ namespace E_Commerce.Entity
 {
     public class DataContext:DbContext
     {
-        static DataContext()
-        {
-            Database.SetInitializer<DataContext>(null);
-        }
+        //static DataContext()
+        //{
+        //    Database.SetInitializer<DataContext>(null);
+        //}
         public DataContext():base("dataConnection")
         {
-
+            //Database.SetInitializer<DataContext>(null);
+            Database.SetInitializer<DataContext>(new DataInitializer());
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }

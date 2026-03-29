@@ -15,7 +15,7 @@ namespace E_Commerce.Entity
         public DataContext():base("dataConnection")
         {
             //Database.SetInitializer<DataContext>(null);
-            Database.SetInitializer<DataContext>(new DataInitializer());
+            Database.SetInitializer(new DataInitializer());
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }

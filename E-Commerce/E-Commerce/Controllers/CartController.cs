@@ -37,6 +37,7 @@ namespace E_Commerce.Controllers
 
             order.Total = cart.Total();
             order.OrderDate = DateTime.Now;
+            order.OrderState = OrderState.Bekleniyor;
             order.UserName = User.Identity.Name;
             order.Address = model.Address;
             order.City= model.City;

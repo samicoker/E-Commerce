@@ -1,4 +1,5 @@
-﻿using E_Commerce.Identity;
+﻿using E_Commerce.Entity;
+using E_Commerce.Identity;
 using E_Commerce.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -15,7 +16,9 @@ namespace E_Commerce.Controllers
     {
         private UserManager<ApplicationUser> UserManager; // UserManager ile kullanıcı işlemlerini yöneteceğiz, ona <> içinde IdentityUser dan türetilmiş ApplicationUser ı gönderiyoruz
         private RoleManager<ApplicationRole> RoleManager;
-                
+
+        DataContext db = new DataContext();
+
         public AccountController()
         {
             var userStore = new UserStore<ApplicationUser>(new IdentityDataContext());// kullanıcıların veritabanı işlemlerine yönelik yöntemleri oluşturan userStore oluşturduk, veritabanıyla konuşmamızı sağlayacak crud işlemleri yapar UserManager direkt DB ile konuşmaz → UserStore üzerinden konuşur
@@ -140,8 +143,17 @@ namespace E_Commerce.Controllers
         }
         public ActionResult Index(Register model)
         {
-            
-            return View();
+            var userName = User.Identity.Name;
+            var orders = db.Orders.Where(x => x.UserName == userName).Select(x => new UserOrder
+            {
+                Id = x.Id,
+                OrderNumber = x.OrderNumber,
+                OrderState = x.OrderState,
+                OrderDate = x.OrderDate,
+                Total = x.Total
+            }).OrderByDescending(x => x.OrderDate).ToList();
+
+            return View(orders);
         }
     }
 }

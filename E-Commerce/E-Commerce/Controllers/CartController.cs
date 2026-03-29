@@ -19,7 +19,22 @@ namespace E_Commerce.Controllers
         private void SaveOrder(Cart cart,ShippingDetails model)
         {
             var order = new Order();
-            order.OrderNumber = "S" + (new Random()).Next(1111,9999).ToString();
+
+            var rnd = new Random();
+            var orderNumber = "S";
+            while (true)
+            {
+                orderNumber += rnd.Next(1111, 9999);
+                var isExist = db.Orders.Any(o => o.OrderNumber == orderNumber);
+                if (!isExist)
+                {
+                    order.OrderNumber = orderNumber;
+                    break;
+                }
+            }
+
+            //order.OrderNumber = "S" + (new Random()).Next(1111, 9999).ToString();
+
             order.Total = cart.Total();
             order.OrderDate = DateTime.Now;
             order.UserName = User.Identity.Name;

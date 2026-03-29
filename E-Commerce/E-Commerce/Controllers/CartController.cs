@@ -23,19 +23,19 @@ namespace E_Commerce.Controllers
             order.Total = cart.Total();
             order.OrderDate = DateTime.Now;
             order.UserName = User.Identity.Name;
-            order.Adres = model.Adres;
-            order.Sehir= model.Sehir;
-            order.Semt = model.Semt;
-            order.Mahalle = model.Mahalle;
-            order.PostaKodu = model.PostaKodu;
-            order.OrderLines = new List<OrderLine>();
+            order.Address = model.Address;
+            order.City= model.City;
+            order.District = model.District;
+            order.Neighbourhood = model.Neighbourhood;
+            order.PostCode = model.PostCode;
+            order.OrderDetails = new List<OrderDetails>();
             foreach (var item in cart.CartLines)
             {
-                var orderLine = new OrderLine();
+                var orderLine = new OrderDetails();
                 orderLine.Quantity = item.Quantity;
                 orderLine.Price = item.Product.Price * item.Quantity;
                 orderLine.ProductId = item.Product.Id;
-                order.OrderLines.Add(orderLine);
+                order.OrderDetails.Add(orderLine);
             }
             db.Orders.Add(order);
             db.SaveChanges();
@@ -58,7 +58,7 @@ namespace E_Commerce.Controllers
             {
                 SaveOrder(cart, model);
                 cart.Clear();
-                return View("SiparisTamamlandi");
+                return View("OrderCompleted");
             }
             else
             {
@@ -82,7 +82,7 @@ namespace E_Commerce.Controllers
             }
             return RedirectToAction("Index");
         }
-        public ActionResult AddToCart(int id)
+        public ActionResult AddToCart(int id) // sepete ürün ekleme metodu
         {
             var product = db.Products.FirstOrDefault(p => p.Id == id);
             if (product!=null)

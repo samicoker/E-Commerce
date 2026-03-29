@@ -8,7 +8,7 @@ namespace E_Commerce.Identity
 {
     public class IdentityDataContext:IdentityDbContext<ApplicationUser>
     {
-        public IdentityDataContext():base("dataConnection")
+        public IdentityDataContext():base("IdentityConnection")
         {
 
         }

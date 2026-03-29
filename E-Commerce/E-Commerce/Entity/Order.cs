@@ -12,17 +12,17 @@ namespace E_Commerce.Entity
         public decimal Total { get; set; }
         public DateTime OrderDate { get; set; }
         public string UserName { get; set; }
-        public string Adres { get; set; }
-        public string Sehir { get; set; }
-        public string Semt { get; set; }
-        public string Mahalle { get; set; }
-        public string PostaKodu { get; set; }
-        public virtual List<OrderLine> OrderLines { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string District { get; set; }
+        public string Neighbourhood { get; set; }
+        public string PostCode { get; set; }
+        public virtual List<OrderDetails> OrderDetails { get; set; }
 
     }
-    public class OrderLine  // ürün için oluşturuyoruz
+    public class OrderDetails  // ürün için oluşturuyoruz
     {
-        public int Id { get; set; } // ürün ıd si
+        public int Id { get; set; } // ürün ıd si gibi düşünülebilir
         public int OrderId { get; set; } // categoryId gibi düşünülebilir
         public virtual Order Order { get; set; }
         public int Quantity { get; set; }

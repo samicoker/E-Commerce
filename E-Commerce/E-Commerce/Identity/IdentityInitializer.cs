@@ -16,9 +16,9 @@ namespace E_Commerce.Identity
             IdentityDataContext context = new IdentityDataContext();
             if (!context.Roles.Any(x => x.Name == "admin"))
             {
-                var store = new RoleStore<ApplicationRole>(context);
-                var manager = new RoleManager<ApplicationRole>(store);
-                var role = new ApplicationRole() { Name = "admin", Description = "admin rolü" };
+                var store = new RoleStore<ApplicationRole>(context); //Role verilerini veritabanına bağlayan katman yani DB ile konuşan kısım
+                var manager = new RoleManager<ApplicationRole>(store);/* Role işlemlerini yöneten servis Yani: create delete update 👉 tüm role işlemleri buradan yapılır */
+                var role = new ApplicationRole() { Name = "admin", Description = "admin rolü" };//yeni bir rol objesi oluşturuyorsun
                 manager.Create(role);
             }
             if (!context.Roles.Any(x => x.Name == "user"))

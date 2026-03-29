@@ -1,13 +1,14 @@
-﻿using System;
+﻿using E_Commerce.Entity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using E_Commerce.Entity;
 
 namespace E_Commerce.Controllers
 {
@@ -141,11 +142,42 @@ namespace E_Commerce.Controllers
 
             if (File != null && File.ContentLength > 0)
             {
-                var fileName = Path.GetFileName(File.FileName);
+                // 1. Eski resmi sil
+                if (!string.IsNullOrEmpty(entity.Image))
+                {
+                    var oldPath = Path.Combine(Server.MapPath("~/Content/Images"), entity.Image);
+
+                    if (System.IO.File.Exists(oldPath))
+                    {
+                        System.IO.File.Delete(oldPath);
+                    }
+                }
+
+                var ext = Path.GetExtension(File.FileName).ToLower();
+
+                if (ext != ".jpg" && ext != ".jpeg" && ext != ".png")
+                {
+                    ModelState.AddModelError("", "Sadece jpg, jpeg ve png uzantılı dosyalar yüklenebilir.");
+                    ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", entity.CategoryId);
+                    return View(entity);
+                }
+
+                var originalName = Path.GetFileNameWithoutExtension(File.FileName);
+                originalName = Regex.Replace(originalName, @"[^a-zA-Z0-9]", "_");
+
+                var fileName = $"{Guid.NewGuid()}_{originalName}{ext}";
+
                 var path = Path.Combine(Server.MapPath("~/Content/Images"), fileName);
+
                 File.SaveAs(path);
 
                 entity.Image = fileName;
+
+                //var fileName = Path.GetFileName(File.FileName);
+                //var path = Path.Combine(Server.MapPath("~/Content/Images"), fileName);
+                //File.SaveAs(path);
+
+                //entity.Image = fileName;
             }
             // File yoksa entity.Image aynen kalır
 

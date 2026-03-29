@@ -6,7 +6,7 @@ using System.Web;
 
 namespace E_Commerce.Models
 {
-    public class Cart
+    public class Cart // sepetin tamamını temsil eder
     {
         private List<CartLine> _cartLines = new List<CartLine>();
         public List<CartLine> CartLines
@@ -38,7 +38,7 @@ namespace E_Commerce.Models
             _cartLines.Clear();
         }
     }
-    public class CartLine
+    public class CartLine // her bir sepet satırını temsil eder
     {
         public Product Product { get; set; }
         public int Quantity { get; set; }

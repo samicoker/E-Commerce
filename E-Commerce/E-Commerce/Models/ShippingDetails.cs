@@ -10,15 +10,15 @@ namespace E_Commerce.Models
     {
         public string UserName { get; set; }
         [Required(ErrorMessage ="Lütfen adres giriniz")]
-        public string Adres { get; set; }
+        public string Address { get; set; }
         [Required(ErrorMessage ="Lütfen şehir giriniz")]
-        public string Sehir { get; set; }
+        public string City { get; set; }
         [Required(ErrorMessage ="Lütfen ilçe giriniz")]
-        public string Semt { get; set; }
+        public string District { get; set; }
         [Required(ErrorMessage ="Lütfen mahalle giriniz")]
-        public string Mahalle { get; set; }
+        public string Neighbourhood { get; set; }
         [Required(ErrorMessage ="Lütfen Posta Kodu giriniz")]
-        public string PostaKodu { get; set; }
+        public string PostCode { get; set; }
 
     }
 }

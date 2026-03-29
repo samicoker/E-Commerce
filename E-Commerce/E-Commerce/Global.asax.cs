@@ -16,8 +16,9 @@ namespace E_Commerce
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //Database.SetInitializer<DataContext>(null); // bunu entitynin altýndaki DataContext classýnýn static yapýcý metotundan kopyaladýk
-           // Database.SetInitializer(new IdentityInitializer());
+            Database.SetInitializer(new DataInitializer());
+            Database.SetInitializer(new IdentityInitializer());
+           
         }
     }
 }

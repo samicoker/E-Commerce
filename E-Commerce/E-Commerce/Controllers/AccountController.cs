@@ -13,12 +13,13 @@ namespace E_Commerce.Controllers
 {
     public class AccountController : Controller
     {
-        private UserManager<ApplicationUser> UserManager;
+        private UserManager<ApplicationUser> UserManager; // UserManager ile kullanıcı işlemlerini yöneteceğiz, ona <> içinde IdentityUser dan türetilmiş ApplicationUser ı gönderiyoruz
         private RoleManager<ApplicationRole> RoleManager;
                 
         public AccountController()
         {
-            var userStore = new UserStore<ApplicationUser>(new IdentityDataContext());
+            var userStore = new UserStore<ApplicationUser>(new IdentityDataContext());// kullanıcıların veritabanı işlemlerine yönelik yöntemleri oluşturan userStore oluşturduk, veritabanıyla konuşmamızı sağlayacak crud işlemleri yapar UserManager direkt DB ile konuşmaz → UserStore üzerinden konuşur
+
             UserManager = new UserManager<ApplicationUser>(userStore);
 
             var roleStore = new RoleStore<ApplicationRole>(new IdentityDataContext());
@@ -83,7 +84,13 @@ namespace E_Commerce.Controllers
                 var user = UserManager.Find(model.UserName, model.Password);
                 if (user!=null)
                 {
-                    var authManager = HttpContext.GetOwinContext().Authentication;
+                    var authManager = HttpContext.GetOwinContext().Authentication;/*Bu isteğin (request) authentication işlemlerini yöneten servisi bana ver Yani:
+                        👉 login yap
+                        👉 logout yap
+                        👉 cookie yaz
+                        👉 kullanıcıyı sisteme sok
+
+                        bunların hepsini yapan merkez nesne bu. */
                     var Identityclaims = UserManager.CreateIdentity(user, "ApplicationCookie");
                     var authProperties = new AuthenticationProperties();
                     authProperties.IsPersistent = model.RememberMe;
@@ -96,7 +103,7 @@ namespace E_Commerce.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("LoginUserError", "Böyle bir kullanıcı yok");
+                    ModelState.AddModelError("", "Kullanıcı adı ya da şifre hatalı!");
                 }
             }
             return View(model);

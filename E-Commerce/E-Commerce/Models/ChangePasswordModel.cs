@@ -13,6 +13,7 @@ namespace E_Commerce.Models
         [DisplayName("Eski Şifre")]
         public string OldPassword { get; set; }
         [Required]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "Şifre en az 5 karakter olmalı")]
         [DisplayName("Yeni Şifre")]
         public string NewPassword { get; set; }
         [Required]

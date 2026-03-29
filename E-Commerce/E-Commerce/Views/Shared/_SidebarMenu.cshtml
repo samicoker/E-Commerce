@@ -1,0 +1,36 @@
+﻿
+@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+    var action = ViewContext.RouteData.Values["action"]?.ToString();
+
+    var isCategoryOpen = controller == "Category";
+    var isProductOpen = controller == "Product";
+}
+
+<ul class="sidebar-menu">
+    <li class="header">MAIN NAVIGATION</li>
+    <li class="@(controller =="Home" ? "active" : "")">
+        <a href="/Home/Index">
+            <i class="fa fa-dashboard"></i> <span>Anasayfa</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+
+    </li>
+    <li class="treeview @(isCategoryOpen ? "active menu-open" : "")">
+        <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Kategori İşlemleri</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu" style="@(isCategoryOpen ? "display:block;" : "display:none;")">
+            <li class="@(controller == "Category" && action == "Create" ? "active" : "")"><a href="/Category/Create"><i class="fa fa-circle-o"></i> Kategori Ekle</a></li>
+            <li class="@(controller == "Category" && action == "Index" ? "active" : "")"><a href="/Category/Index"><i class="fa fa-circle-o"></i> Kategori Listesi</a></li>
+        </ul>
+    </li>
+    <li class="treeview" @(isProductOpen ? "active menu-open" : "") ">
+        <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Ürün İşlemleri</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu" style="@(isProductOpen ? "display:block;" : "display:none;")">
+            <li class="@(controller == "Product" && action == "Create" ? "active" : "")"><a href="/Product/Create"><i class="fa fa-circle-o"></i> Ürün Ekle</a></li>
+            <li class="@(controller == "Product" && action == "Index" ? "active" : "")"><a href="/Product/Index"><i class="fa fa-circle-o"></i> Ürün Listesi </a></li>
+        </ul>
+    </li>
+</ul>

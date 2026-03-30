@@ -155,5 +155,33 @@ namespace E_Commerce.Controllers
 
             return View(orders);
         }
+
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+            var orderModel = db.Orders.Where(x => x.Id == id).Select(x => new OrderDetailsModel
+            {
+                OrderId = x.Id,
+                OrderNumber = x.OrderNumber,
+                Total = x.Total,
+                OrderDate = x.OrderDate,
+                OrderState = x.OrderState,
+                Address = x.Address,
+                City = x.City,
+                District = x.District,
+                Neighbourhood = x.Neighbourhood,
+                PostCode = x.PostCode,
+                OrderLines = x.OrderDetails.Select(od => new OrderLineModel
+                {
+                    ProductId = od.ProductId,
+                    Image = od.Product.Image,
+                    ProductName = od.Product.Name,
+                    Quantity = od.Quantity,
+                    Price = od.Price
+                }).ToList()
+            }).FirstOrDefault();
+
+            return View(orderModel);
+        }
     }
 }

@@ -26,5 +26,48 @@ namespace E_Commerce.Controllers
 
             return View(orders);
         }
+
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+
+            var model = db.Orders.Where(x => x.Id == id).Select(x => new OrderDetailsModel
+            {
+                OrderId = x.Id,
+                OrderNumber= x.OrderNumber,
+                Total = x.Total,
+                UserName = x.UserName,
+                OrderDate = x.OrderDate,
+                OrderState = x.OrderState,
+                Address = x.Address,
+                City = x.City,
+                District = x.District,
+                Neighbourhood = x.Neighbourhood,
+                PostCode =x.PostCode,
+                OrderLines = x.OrderDetails.Select(i=>new OrderLineModel()
+                {
+                    ProductId = i.ProductId,
+                    Image = i.Product.Image,
+                    ProductName = i.Product.Name,
+                    Quantity = i.Quantity,
+                    Price = i.Price,
+                }).ToList()
+            }).FirstOrDefault();
+
+            return View(model);
+        }
+
+        public ActionResult UpdateOrderState(int orderId, OrderState OrderState)
+        {
+            var order = db.Orders.FirstOrDefault(x=>x.Id == orderId);
+            if(order != null)
+            {
+                order.OrderState = OrderState;
+                db.SaveChanges();
+                TempData["message"] = "Bilgiler Kaydedildi";
+                return RedirectToAction("Details", new { id = orderId });
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

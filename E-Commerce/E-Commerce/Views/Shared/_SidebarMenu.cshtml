@@ -5,13 +5,14 @@
 
     var isCategoryOpen = controller == "Category";
     var isProductOpen = controller == "Product";
+    var isOrderOpen = controller == "Order";
 }
 
 <ul class="sidebar-menu">
     <li class="header">MAIN NAVIGATION</li>
     <li class="@(controller =="Home" ? "active" : "")">
         <a href="/Home/Index">
-            <i class="fa fa-dashboard"></i> <span>Anasayfa</span> <i class="fa fa-angle-left pull-right"></i>
+            <i class="fa fa-dashboard"></i> <span>Web Sayfasına Git</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
 
     </li>
@@ -31,6 +32,16 @@
         <ul class="treeview-menu" style="@(isProductOpen ? "display:block;" : "display:none;")">
             <li class="@(controller == "Product" && action == "Create" ? "active" : "")"><a href="/Product/Create"><i class="fa fa-circle-o"></i> Ürün Ekle</a></li>
             <li class="@(controller == "Product" && action == "Index" ? "active" : "")"><a href="/Product/Index"><i class="fa fa-circle-o"></i> Ürün Listesi </a></li>
+        </ul>
+    </li>
+
+    <li class="treeview" @(isOrderOpen ? "active menu-open" : "") ">
+        <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Sipariş İşlemleri</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu" style="@(isOrderOpen ? "display:block;" : "display:none;")">
+            <li class="@(controller == "Order" && action == "Index" ? "active" : "")"><a href="/Order/Index"><i class="fa fa-circle-o"></i> Tüm Siparişler</a></li>
+           
         </ul>
     </li>
 </ul>

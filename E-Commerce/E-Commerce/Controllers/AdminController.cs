@@ -26,5 +26,12 @@ namespace E_Commerce.Controllers
 
             return View(model);
         }
+
+        public PartialViewResult NotificationsMenu()
+        {
+            var notifications = db.Orders.Where(x => x.OrderState == OrderState.Bekleniyor).ToList();
+
+            return PartialView(notifications);
+        }
     }
 }

@@ -11,6 +11,7 @@ using E_Commerce.Models;
 
 namespace E_Commerce.Controllers
 {
+
     public class CategoryController : Controller
     {
         private DataContext db = new DataContext();
@@ -27,12 +28,14 @@ namespace E_Commerce.Controllers
             return PartialView(kategoriler);
         }
         // GET: Category
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             return View(db.Categories.ToList());
         }
 
         // GET: Category/Details/5
+        [Authorize(Roles = "admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -48,6 +51,7 @@ namespace E_Commerce.Controllers
         }
 
         // GET: Category/Create
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View();
@@ -56,6 +60,7 @@ namespace E_Commerce.Controllers
         // POST: Category/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Description")] Category category)
@@ -71,6 +76,7 @@ namespace E_Commerce.Controllers
         }
 
         // GET: Category/Edit/5
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -88,6 +94,7 @@ namespace E_Commerce.Controllers
         // POST: Category/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Description")] Category category)
@@ -102,6 +109,7 @@ namespace E_Commerce.Controllers
         }
 
         // GET: Category/Delete/5
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -119,6 +127,7 @@ namespace E_Commerce.Controllers
         // POST: Category/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Category category = db.Categories.Find(id);

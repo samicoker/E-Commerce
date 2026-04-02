@@ -70,7 +70,15 @@
 
 
             <a href="/Home/Index" class="shopBtn btn-large"><span class="icon-arrow-left"></span> Alışverişe Devam Et </a>
-            <a href="/Cart/Checkout" class="shopBtn btn-large pull-right">Sipariş Ver <span class="icon-arrow-right"></span></a>
+            @if (Request.IsAuthenticated)
+            {
+                <a href="/Cart/Checkout" class="shopBtn btn-large pull-right">Sipariş Ver <span class="icon-arrow-right"></span></a>
+            }
+            else
+            {
+                <a href="/Account/Login" class="shopBtn btn-large pull-right">Sipariş Ver <span class="icon-arrow-right"></span></a>
+            }
+
 
         </div>
     </div>

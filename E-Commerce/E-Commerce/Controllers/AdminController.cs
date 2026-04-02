@@ -12,6 +12,7 @@ namespace E_Commerce.Controllers
     {
         // GET: Admin
         DataContext db = new DataContext();
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             StateModel model = new StateModel();

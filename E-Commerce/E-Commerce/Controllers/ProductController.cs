@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace E_Commerce.Controllers
 {
+    [Authorize(Roles ="admin")]
     public class ProductController : Controller
     {
         private DataContext db = new DataContext();

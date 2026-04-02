@@ -11,11 +11,17 @@
 <ul class="sidebar-menu">
     <li class="header">MAIN NAVIGATION</li>
     <li class="@(controller =="Home" ? "active" : "")">
-        <a href="/Home/Index">
+        <a href="/Home/Index" target="_blank">
             <i class="fa fa-dashboard"></i> <span>Web Sayfasına Git</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
-
     </li>
+
+    <li class="@(controller =="Admin" ? "active" : "")">
+        <a href="/Admin/Index">
+            <i class="fa fa-dashboard"></i> <span>Admin Anasayfa</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+    </li>
+
     <li class="treeview @(isCategoryOpen ? "active menu-open" : "")">
         <a href="#">
             <i class="fa fa-dashboard"></i> <span>Kategori İşlemleri</span> <i class="fa fa-angle-left pull-right"></i>

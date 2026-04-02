@@ -1009,6 +1009,10 @@
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Views\Order\BekleyenSiparisler.cshtml" />
+    <Content Include="Views\Order\TamamlananSiparisler.cshtml" />
+    <Content Include="Views\Order\PaketlenenSiparisler.cshtml" />
+    <Content Include="Views\Order\KargolananSiparisler.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

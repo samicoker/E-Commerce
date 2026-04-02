@@ -56,7 +56,7 @@ namespace E_Commerce.Controllers
 
             return View(model);
         }
-
+        [HttpPost]
         public ActionResult UpdateOrderState(int orderId, OrderState OrderState)
         {
             var order = db.Orders.FirstOrDefault(x=>x.Id == orderId);
@@ -68,6 +68,28 @@ namespace E_Commerce.Controllers
                 return RedirectToAction("Details", new { id = orderId });
             }
             return RedirectToAction("Index");
+        }
+
+        public ActionResult BekleyenSiparisler()
+        {
+            var model = db.Orders.Where(x => x.OrderState == OrderState.Bekleniyor).ToList();
+            return View(model);
+        }
+        public ActionResult TamamlananSiparisler()
+        {
+            var model = db.Orders.Where(x => x.OrderState == OrderState.Tamamlandı).ToList();
+            return View(model);
+        }
+
+        public ActionResult PaketlenenSiparisler()
+        {
+            var model = db.Orders.Where(x => x.OrderState == OrderState.Paketlendi).ToList();
+            return View(model);
+        }
+        public ActionResult KargolananSiparisler()
+        {
+            var model = db.Orders.Where(x => x.OrderState == OrderState.Kargolandı).ToList();
+            return View(model);
         }
     }
 }

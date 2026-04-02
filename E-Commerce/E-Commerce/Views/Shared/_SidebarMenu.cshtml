@@ -41,7 +41,10 @@
         </a>
         <ul class="treeview-menu" style="@(isOrderOpen ? "display:block;" : "display:none;")">
             <li class="@(controller == "Order" && action == "Index" ? "active" : "")"><a href="/Order/Index"><i class="fa fa-circle-o"></i> Tüm Siparişler</a></li>
-           
+            <li class="@(controller == "Order" && action == "BekleyenSiparisler" ? "active" : "")"><a href="/Order/BekleyenSiparisler"><i class="fa fa-circle-o"></i> Bekleyen Siparişler</a></li>
+            <li class="@(controller == "Order" && action == "TamamlananSiparisler" ? "active" : "")"><a href="/Order/TamamlananSiparisler"><i class="fa fa-circle-o"></i> Tamamlanan Siparişler</a></li>
+            <li class="@(controller == "Order" && action == "PaketlenenSiparisler" ? "active" : "")"><a href="/Order/PaketlenenSiparisler"><i class="fa fa-circle-o"></i> Paketlenen Siparişler</a></li>
+            <li class="@(controller == "Order" && action == "KargolananSiparisler" ? "active" : "")"><a href="/Order/KargolananSiparisler"><i class="fa fa-circle-o"></i> Kargolanan Siparişler</a></li>
         </ul>
     </li>
 </ul>

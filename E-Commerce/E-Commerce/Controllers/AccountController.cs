@@ -183,5 +183,20 @@ namespace E_Commerce.Controllers
 
             return View(orderModel);
         }
+
+        [HttpGet]
+        public PartialViewResult UserCount()
+        {
+            var users = UserManager.Users;
+
+            return PartialView(users);
+        }
+        
+        [HttpGet]
+        public ActionResult UserList()
+        {
+            var users = UserManager.Users;
+            return View(users);
+        }
     }
 }

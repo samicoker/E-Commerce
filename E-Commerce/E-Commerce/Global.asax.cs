@@ -18,7 +18,18 @@ namespace E_Commerce
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             Database.SetInitializer(new DataInitializer());
             Database.SetInitializer(new IdentityInitializer());
-           
+
+            /////////////////////////////////////////////////
+            using (var db = new DataContext())
+            {
+                db.Database.Initialize(false);
+            }
+
+            using (var identityDb = new IdentityDataContext())
+            {
+                identityDb.Database.Initialize(false);
+            }
+            //////////////////////////// bu bölüm, proje çalýþýr çalýþmaz veritabanýný ve tablolarý oluþturmasý için eklendi, bu olmasa ancak o tablolara eriþim ihtiyacý olduðunda o tablolar oluþacaktý.
         }
     }
 }

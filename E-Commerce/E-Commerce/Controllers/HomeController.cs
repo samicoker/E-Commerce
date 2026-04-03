@@ -74,5 +74,10 @@ namespace E_Commerce.Controllers
         {
             return View(db.Products.Where(x=>x.CategoryId==id).ToList());
         }
+
+        public ActionResult Address()
+        {
+            return View();
+        }
     }
 }

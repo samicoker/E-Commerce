@@ -47,12 +47,7 @@ namespace E_Commerce.Controllers
         }
         public ActionResult ProductDetails(int id)
         {
-            //List<Product> products = new List<Product>
-            //{
-            //    new Product{Id=1, Name="Test",CategoryId=1,Description="açıklama deneme",Image="50299859_2184832821769918_7218346797591166976_n.png",IsApproved=true,IsFeatured=true,IsHome=true,Price=250,Slider=true,Stock=150},
-            //    new Product{Id=2, Name="Test1",CategoryId=1,Description="açıklama1 deneme",Image="101084493_661253271102154_6497855060045725696_n.png",IsApproved=true,IsFeatured=true,IsHome=true,Price=250,Slider=true,Stock=150},
-            //    new Product{Id=3, Name="Test2",CategoryId=1,Description="açıklama deneme",Image="50299859_2184832821769918_7218346797591166976_n.png",IsApproved=true,IsFeatured=true,IsHome=true,Price=250,Slider=true,Stock=150}
-            //};
+           
             var products = db.Products.ToList();
             return View(products.Where(x=>x.Id==id).FirstOrDefault());
         }
@@ -60,14 +55,7 @@ namespace E_Commerce.Controllers
         [HttpGet]
         public ActionResult Product()
         {
-            //List<Product> products = new List<Product>
-            //{
-            //    new Product{Id=1, Name="Test",CategoryId=1,Description="açıklama deneme",Image="50299859_2184832821769918_7218346797591166976_n.png",IsApproved=true,IsFeatured=true,IsHome=true,Price=250,Slider=true,Stock=150},
-            //    new Product{Id=2, Name="Test1",CategoryId=1,Description="açıklama1 deneme",Image="101084493_661253271102154_6497855060045725696_n.png",IsApproved=true,IsFeatured=true,IsHome=true,Price=250,Slider=true,Stock=150},
-            //    new Product{Id=3, Name="Test2",CategoryId=1,Description="açıklama deneme",Image="50299859_2184832821769918_7218346797591166976_n.png",IsApproved=true,IsFeatured=true,IsHome=true,Price=250,Slider=true,Stock=150},
-            //    new Product{Id=4, Name="Test2",CategoryId=1,Description="açıklama deneme",Image="50299859_2184832821769918_7218346797591166976_n.png",IsApproved=true,IsFeatured=true,IsHome=true,Price=250,Slider=true,Stock=150}
-            //};
-            //return View(products);
+            
             return View(db.Products.ToList());
         }
         public ActionResult ProductList(int id)

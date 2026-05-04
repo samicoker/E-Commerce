@@ -63,18 +63,34 @@ namespace E_Commerce.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Product product, HttpPostedFileBase File)
+        public ActionResult Create(Product product, HttpPostedFileBase file)
         {
-
             if (ModelState.IsValid)
             {
-                if (File != null)
+                if (file != null && file.ContentLength > 0)
                 {
-                    string path = Path.Combine("/Content/Images/" + File.FileName);
-                    File.SaveAs(Server.MapPath(path));
+                    var ext = Path.GetExtension(file.FileName).ToLower();
 
-                    product.Image = File.FileName.ToString();
+                    if (ext != ".jpg" && ext != ".jpeg" && ext != ".png")
+                    {
+                        ModelState.AddModelError("", "Sadece jpg, jpeg ve png uzantılı dosyalar yüklenebilir.");
+                        ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", product.CategoryId);
+                        return View(product);
+                    }
+
+                    var originalName = Path.GetFileNameWithoutExtension(file.FileName);
+                    originalName = Regex.Replace(originalName, @"[^a-zA-Z0-9]", "_");
+
+                    var guid = Guid.NewGuid();
+                    var fileName = $"{guid}_{originalName}{ext}";
+
+                    var path = Path.Combine(Server.MapPath("~/Content/Images"), fileName);
+
+                    file.SaveAs(path);
+
+                    product.Image = fileName;
                 }
+
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -174,11 +190,6 @@ namespace E_Commerce.Controllers
 
                 entity.Image = fileName;
 
-                //var fileName = Path.GetFileName(File.FileName);
-                //var path = Path.Combine(Server.MapPath("~/Content/Images"), fileName);
-                //File.SaveAs(path);
-
-                //entity.Image = fileName;
             }
             // File yoksa entity.Image aynen kalır
 
